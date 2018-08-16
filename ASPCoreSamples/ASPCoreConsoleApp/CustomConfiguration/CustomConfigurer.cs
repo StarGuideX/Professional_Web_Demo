@@ -14,7 +14,10 @@ namespace ASPCoreConsoleApp.CustomConfiguration
             ReadConfiguration();
         }
 
-
+        /// <summary>
+        /// 为ConfigurationBuilder添加了JSON、环境变量、命令行Prociders
+        /// </summary>
+        /// <param name="args"></param>
         public void SetupConfiguration(string[] args)
         {
             var builder = new ConfigurationBuilder()
@@ -29,7 +32,9 @@ namespace ASPCoreConsoleApp.CustomConfiguration
             get;
             private set;
         }
-
+        /// <summary>
+        /// 读取配置文件-appsettings.json
+        /// </summary>
         private void ReadConfiguration()
         {
             string val1 = Configuration.GetSection("section1")["key1"];

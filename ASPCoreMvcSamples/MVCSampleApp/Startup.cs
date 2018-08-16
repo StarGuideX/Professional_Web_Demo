@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace MVCSampleApp
@@ -17,6 +18,7 @@ namespace MVCSampleApp
         {
             //添加MVC Service
             services.AddMvc();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -26,11 +28,28 @@ namespace MVCSampleApp
             {
                 app.UseDeveloperExceptionPage();
             }
+            #region 创建mvc默认路由
+            app.UseStaticFiles();
+            //app.UseMvcWithDefaultRoute();
+            #endregion
+
+            app.UseMvc(routes => routes.MapRoute(
+                name: "default",
+                template: "{controller}/{action}/{id?}",
+                defaults: new { controller = "Home", action = "Index" })
+                .MapRoute(
+                name: "multipleparameters",
+                template: "{controller}/Add/{x:int}/{y:int}",
+                defaults: new { controller = "Home", action = "Add" },
+                constraints: new { x = @"\d{1,3}", y = @"\d{1,3}" })
+                );
 
             app.Run(async (context) =>
             {
                 await context.Response.WriteAsync("Hello World!");
             });
+
+
         }
     }
 }

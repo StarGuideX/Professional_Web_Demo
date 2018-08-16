@@ -23,7 +23,7 @@ namespace ASPCoreConsoleApp
             switch (input)
             {
                 case "1":
-                    new CustomConfigurer().CustomConfigurerStart(new string[] { "section1:key1='settings from command line'"});
+                    new CustomConfigurer().CustomConfigurerStart(new string[] { "section1:key1=settings from command line"});
                     break;
                 default:
                     break;
