@@ -12,6 +12,9 @@ namespace MVCSampleApp.Controllers
     {
         public string Index() => "这是一个POCOController";
 
+        /// <summary>
+        /// POCOController类使用ActionContext作为此属性的名称，就像Controller类一样。
+        /// </summary>
         [ActionContext]
         public ActionContext ActionContext { get; set; }
 
