@@ -32,5 +32,8 @@ namespace MVCSampleApp.Controllers
         public IActionResult RedirectDemo() => Redirect("https://www.cninnovation.com");
 
         public IActionResult RedirectRouteDemo() => RedirectToRoute(new { controller = "Home", action = "Hello" });
+
+        public IActionResult FileDemo() => File("/images/matthias.jpg", "image/jpeg");
+
     }
 }
