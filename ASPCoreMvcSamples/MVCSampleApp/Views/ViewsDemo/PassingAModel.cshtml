@@ -1,0 +1,14 @@
+﻿@using MVCSampleApp.Models
+@model IEnumerable<Menu>
+@{
+    ViewData["Title"] = "PassingAModel";
+}
+
+<div>
+    <ul>
+        @foreach (var item in Model)
+        {
+            <li>@item.Text</li>
+        }
+    </ul>
+</div>

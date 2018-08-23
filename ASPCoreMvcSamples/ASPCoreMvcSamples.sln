@@ -7,6 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASPCoreMvcSamples", "ASPCor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MVCSampleApp", "MVCSampleApp\MVCSampleApp.csproj", "{DE6112BF-1A18-4927-9EAF-A7DF5747F310}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7E12DB78-4F95-4636-96D6-342408B9FDEB}"
+	ProjectSection(SolutionItems) = preProject
+		.filenesting.json = .filenesting.json
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
