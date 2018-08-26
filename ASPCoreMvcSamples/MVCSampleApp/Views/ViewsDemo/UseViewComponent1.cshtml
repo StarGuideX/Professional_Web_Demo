@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "View Components Sample";
+} 
+<h2>@ViewBag.Title</h2>
+<p>
+    @*Component是View的动态创建属性(dynamically created property)，它返回实现IViewComponentHelper的对象。
+    IViewComponentHelper允许调用同步或异步方法
+    需要使用Dictionary <string，object>传递参数，其中键与参数名称匹配*@
+        @await Component.InvokeAsync("EventList", new
+        Dictionary<string, object>()
+        {
+        ["from"] = new DateTime(2018, 4, 1),
+        ["to"] = new DateTime(2018, 4, 20)
+        })
+</p>

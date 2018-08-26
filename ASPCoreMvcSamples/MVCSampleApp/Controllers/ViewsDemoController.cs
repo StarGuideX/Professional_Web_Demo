@@ -20,8 +20,6 @@ namespace MVCSampleApp.Controllers
             _context = context;
         }
 
-        public IActionResult UseAPartialView1() => View(_context);
-
         public IActionResult Index()
         {
             return View();
@@ -64,5 +62,17 @@ namespace MVCSampleApp.Controllers
         public IActionResult LayoutSample() => View();
 
         public IActionResult LayoutUsingSections() => View();
+
+        public IActionResult UseAPartialView1() => View(_context);
+        public ActionResult UseAPartialView2() => View();
+        public ActionResult ShowEvents()
+        {
+            ViewBag.EventsTitle = "Live Events";
+            return PartialView(_context.Events);
+        }
+
+        public IActionResult UseViewComponent1() => View();
+        public IActionResult UseViewComponent2() => View();
+        public IActionResult InjectServiceInView() => View();
     }
 }
