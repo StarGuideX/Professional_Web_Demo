@@ -1,0 +1,9 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+<a asp-controller="Home" asp-action="Index">Home</a>
+<br />
+@*下面两个a标签不需要写asp-controller="Home"，因为它们和当前视图来自同一controller*@
+<a asp-action="LabelHelper">Label Tag Helper</a>
+<br />
+<a asp-action="InputTypeHelper">Input Type Tag Helper</a>

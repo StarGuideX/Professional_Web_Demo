@@ -15,6 +15,7 @@ namespace MVCSampleApp.Models
     {
         public int Id { get; set; }
         [Required, StringLength(50)]
+        [Display(Name = "Menu")]
         public string Text { get; set; }
         [Display(Name = "Price"), DisplayFormat(DataFormatString = "{0:C}")]
         public double Price { get; set; }

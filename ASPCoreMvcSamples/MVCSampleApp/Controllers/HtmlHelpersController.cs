@@ -39,5 +39,7 @@ namespace MVCSampleApp.Controllers
         }
 
         public IActionResult StronglyTypedMenu() => View(GetSampleMenu());
+
+        public IActionResult Display()=> View(GetSampleMenu());
     }
 }
