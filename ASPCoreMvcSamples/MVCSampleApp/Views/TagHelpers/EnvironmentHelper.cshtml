@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewData["Title"] = "EnvironmentHelper";
+}
+
+@*include：当是Development和Staging环境时运行*@
+<environment include="Development, Staging">
+    <div>
+        This shows up for the <strong>Development</strong>
+        and <strong>Staging</strong> environments
+    </div>
+</environment>
+@*exclude：不是Production环境时运行*@
+<environment exclude="Production">
+    <div>
+        Not visible in the <strong>Production</strong>
+        environment
+    </div>
+</environment>
