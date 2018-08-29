@@ -37,38 +37,40 @@ namespace MVCSampleApp.Controllers
             return View("ValidationHelperResult", m);
         }
         public IActionResult EnvironmentHelper() => View(GetSampleMenu());
-        public IActionResult CustomTable() => View(GetSampleMenu());
 
-        [HttpPost]
-        public IList<Menu> CustomTable(Menu m) =>
-            new List<Menu>()
+        public IActionResult Markdown() => View();
+
+        public IActionResult MarkdownAttribute() => View();
+
+        public IActionResult CustomTable() => View(GetSampleMenus());
+
+        private IList<Menu> GetSampleMenus() =>
+            new List<Menu>
             {
-                new Menu {
+                new Menu
+                {
                     Id = 1,
                     Text = "Schweinsbraten mit Knödel und Sauerkraut",
                     Price = 8.5,
                     Date = new DateTime(2018, 10, 5),
                     Category = "Main"
-                    },
-                new Menu {
+                },
+                new Menu
+                {
                     Id = 2,
                     Text = "Erdäpfelgulasch mit Tofu und Gebäck",
                     Price = 8.5,
                     Date = new DateTime(2018, 10, 6),
                     Category = "Vegetarian"
-                    },
-                new Menu {
+                },
+                new Menu
+                {
                     Id = 3,
-                    Text = "ssss",
+                    Text = "Tiroler Bauerngröst'l mit Spiegelei und Krautsalat",
                     Price = 8.5,
                     Date = new DateTime(2018, 10, 7),
                     Category = "Vegetarian"
-                    }
+                }
             };
-
-        public IActionResult Markdown() => View();
-
-        public IActionResult MarkdownAttribute() => View();
-        
     }
 }

@@ -12,7 +12,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.filenesting.json = .filenesting.json
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TagHelperSamples", "TagHelperSamples\TagHelperSamples.csproj", "{857C4254-A8CB-4B2D-AE52-DB451F9FAAC5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TagHelperSamples", "TagHelperSamples\TagHelperSamples.csproj", "{857C4254-A8CB-4B2D-AE52-DB451F9FAAC5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MenuPlanner", "MenuPlanner\MenuPlanner.csproj", "{67FC7470-FF05-4B6B-8C5D-76C523BC3DAC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +34,10 @@ Global
 		{857C4254-A8CB-4B2D-AE52-DB451F9FAAC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{857C4254-A8CB-4B2D-AE52-DB451F9FAAC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{857C4254-A8CB-4B2D-AE52-DB451F9FAAC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67FC7470-FF05-4B6B-8C5D-76C523BC3DAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67FC7470-FF05-4B6B-8C5D-76C523BC3DAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67FC7470-FF05-4B6B-8C5D-76C523BC3DAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67FC7470-FF05-4B6B-8C5D-76C523BC3DAC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

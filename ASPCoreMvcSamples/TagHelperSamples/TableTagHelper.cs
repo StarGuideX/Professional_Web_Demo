@@ -42,15 +42,25 @@ namespace TagHelperSamples
             table.MergeAttributes(attributes);
             PropertyInfo[] properties = CreateHeading(table);
 
-
-
-            base.Process(context, output);
+            foreach (var item in Items)
+            {
+                var tr = new TagBuilder("tr");
+                foreach (var prop in properties)
+                {
+                    var td = new TagBuilder("td");
+                    td.InnerHtml.Append(prop.GetValue(item).ToString());
+                    tr.InnerHtml.AppendHtml(td);
+                }
+                table.InnerHtml.AppendHtml(tr);
+            }
+            output.Content.AppendHtml(table);
         }
 
         private PropertyInfo[] CreateHeading(TagBuilder table)
         {
             var tr = new TagBuilder("tr");
             var heading = Items.First();
+            // 使用反射访问此实例的属性，在Type对象上调用GetProperties方法，并在th（html元素）内写入属性的名称
             PropertyInfo[] properties = heading.GetType().GetProperties();
             foreach (var prop in properties)
             {
