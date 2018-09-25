@@ -15,39 +15,44 @@ namespace MenuPlanner.Services
 
         public async Task AddMenuAsync(Menu menu)
         {
-            throw new NotImplementedException();
+            await _menuCardsContext.Menus.AddAsync(menu);
+            await _menuCardsContext.SaveChangesAsync();
         }
 
-        public Task DeleteMenuAsync(int id)
+        public async Task DeleteMenuAsync(int id)
         {
-            throw new NotImplementedException();
+            Menu menu = await _menuCardsContext.Menus.SingleAsync(m => m.Id == id);
+            _menuCardsContext.Menus.Remove(menu);
+            await _menuCardsContext.SaveChangesAsync();
         }
 
-        public Task<Menu> GetMenuByIdAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<Menu> GetMenuByIdAsync(int id) =>
+            await _menuCardsContext.Menus.SingleOrDefaultAsync(m => m.Id == id);
 
-        public Task<IEnumerable<MenuCard>> GetMenuCardsAsync()
+        public async Task<IEnumerable<MenuCard>> GetMenuCardsAsync()
         {
-            throw new NotImplementedException();
+            await EnsureDatabaseCreatedAsync();
+            var menuCards = _menuCardsContext.MenuCards;
+            return await menuCards.ToArrayAsync();
         }
 
         public async Task<IEnumerable<Menu>> GetMenusAsync()
         {
             await EnsureDatabaseCreatedAsync();
             var menus = _menuCardsContext.Menus.Include(m => m.MenuCard);
-            return menus.ToArrayAsync();
+            return await menus.ToArrayAsync();
         }
 
-        public Task UpdateMenuAsync(Menu menu)
+        public async Task UpdateMenuAsync(Menu menu)
         {
-            throw new NotImplementedException();
+            _menuCardsContext.Menus.Update(menu);
+            await _menuCardsContext.SaveChangesAsync();
         }
 
-        private Task EnsureDatabaseCreatedAsync()
+        private async Task EnsureDatabaseCreatedAsync()
         {
-            throw new NotImplementedException();
+            var init = new MenuCardDatabaseInitializer(_menuCardsContext);
+            await init.CreateAndSeedDatabaseAsync();
         }
     }
 }

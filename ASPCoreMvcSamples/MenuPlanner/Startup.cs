@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using MenuPlanner.Data;
 using MenuPlanner.Models;
+using MenuPlanner.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -33,7 +34,7 @@ namespace MenuPlanner
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-
+            services.AddScoped<IMenuCardsService, MenuCardsService>();
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddDbContext<MenuCardsContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 

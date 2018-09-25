@@ -14,6 +14,5 @@ namespace MenuPlanner.Services
         Task<IEnumerable<Menu>> GetMenusAsync();
         Task<IEnumerable<MenuCard>> GetMenuCardsAsync();
         Task UpdateMenuAsync(Menu menu);
-
     }
 }
