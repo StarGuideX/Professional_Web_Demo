@@ -17,7 +17,7 @@ using MenuPlanner.Extensions;
 
 namespace MenuPlanner.Controllers
 {
-    [Authorize]
+    [Authorize] //将所有action方法限制为经过身份验证的用户。
     [Route("[controller]/[action]")]
     public class AccountController : Controller
     {

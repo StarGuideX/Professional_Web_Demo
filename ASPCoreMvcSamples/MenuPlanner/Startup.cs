@@ -45,10 +45,23 @@ namespace MenuPlanner
 
             services.AddScoped<IMenuCardsService, MenuCardsService>();
             #region 身份验证
+            // AddIdentity - 注册身份验证
+            // AddIdentity方法映射身份服务使用的用户类型(ApplicationUser)和角色类(IdentityRole)
+            // ApplicationUser 派生自IdentityUser ; IdentityRole是一个基于字符串的角色类，派生自IdentityRole<string>。 
+            // AddIdentity方法的重载方法可以使用双因素身份验证配置身份系统;
+            //  邮件令牌提供商(email token providers);用户选项(user options)，
+            //  例如需要唯一的电子邮件;或需要用户名匹配的正则表达式。
+            // AddIdentity返回一个IdentityBuilder，它允许身份系统的其他配置，
+            //  例如使用的实体框架上下文(AddEntityFrameworkStores)
+            //  和令牌提供程序(AddDefaultTokenProviders)。
+            //  可以添加的其他提供程序包括错误(errors)，
+            //  密码验证程序(password validators)，
+            //  角色管理器(role managers)，
+            //  用户管理器(user managers)和用户验证程序(user validators)。
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
-            //services.AddTransient<IEmailSender, EmailSender>();
+            services.AddTransient<IEmailSender, EmailSender>();
             #endregion
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
