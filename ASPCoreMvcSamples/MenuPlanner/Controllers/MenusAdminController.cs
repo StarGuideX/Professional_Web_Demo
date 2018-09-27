@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MenuPlanner.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MenuPlanner.Controllers
 {
+    [Authorize(Roles = "Menu Admins")]
     public class MenusAdminController : Controller
     {
         private readonly MenuCardsContext _context;
