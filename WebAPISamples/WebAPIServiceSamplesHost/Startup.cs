@@ -38,6 +38,7 @@ namespace WebAPIServiceSamplesHost
             services.AddSingleton<IBookChaptersService, BookChaptersService>();
             services.AddSingleton<SampleChapters>();
             #endregion
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,7 +52,6 @@ namespace WebAPIServiceSamplesHost
             {
                 app.UseHsts();
             }
-
             app.UseHttpsRedirection();
             app.UseMvc();
 

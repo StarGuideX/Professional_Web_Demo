@@ -6,8 +6,8 @@ namespace WebAPIClientSamples.Services
 {
     public class UrlService
     {
-        public string BaseAddress => "http://localhost:1079/";
-        public string BooksApi => "api/BookChapters/";
+        public string BaseAddress => "http://localhost:3516/";
+        public string BooksApi => "api/BookChapters/async/";
 
     }
 }

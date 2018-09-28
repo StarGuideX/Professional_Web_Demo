@@ -22,21 +22,21 @@ namespace WebAPIServiceSamples.Controllers
             _bookChaptersService = bookChaptersService;
         }
 
-        // GET api/bookchapters
+        // GET api/bookchapters/sync
         /// <summary>
         /// 获取所有BookChapters
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
+        [HttpGet("sync")]
         public IEnumerable<BookChapter> GetBookChapters() => _bookChaptersService.GetAll();
 
-        // GET api/bookchapters/guid
+        // GET api/bookchapters/sync/guid
         /// <summary>
         /// 根据ID查找BookChapter
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpGet("{id}", Name = nameof(GetBookChapterById))]
+        [HttpGet("sync/{id}", Name = nameof(GetBookChapterById))]
         public IActionResult GetBookChapterById(Guid id)
         {
             BookChapter chapter = _bookChaptersService.Find(id);
@@ -52,12 +52,13 @@ namespace WebAPIServiceSamples.Controllers
             }
         }
 
-        // POST api/bookchapters
+        // POST api/bookchapters/sync
         /// <summary>
         /// PostBookChapter接收作为HTTP主体的一部分的BookChapter，在反序列化后分配给PostBookChapter方法参数。
         /// </summary>
         /// <param name="chapter"></param>
         /// <returns></returns>
+        [HttpPost("sync")]
         public IActionResult PostBookChapter([FromBody]BookChapter chapter)
         {
             //如果参数BookChapter为空，则返回BadRequest（HTTP错误400）
@@ -71,14 +72,14 @@ namespace WebAPIServiceSamples.Controllers
             return CreatedAtRoute(nameof(GetBookChapterById), new { id = chapter.Id }, chapter);
         }
 
-        // PUT api/bookchapters/guid
+        // PUT api/bookchapters/sync/guid
         /// <summary>
         /// 更新项目是基于HTTP PUT请求。 PutBookChapter方法更新集合中的现有项。  
         /// </summary>
         /// <param name="id"></param>
         /// <param name="chapter"></param>
         /// <returns></returns>
-        [HttpPut("{id}")]
+        [HttpPut("sync/{id}")]
         public IActionResult PutBookChapter(Guid id, [FromBody]BookChapter chapter)
         {
             // 如果参数BookChapter或者id为空，则返回BadRequest（HTTP错误400）
@@ -96,22 +97,22 @@ namespace WebAPIServiceSamples.Controllers
             return new NoContentResult();
         }
 
-        // DELETE api/bookchapters/5
+        // DELETE api/bookchapters/sync/5
         /// <summary>
         /// 删除Bookchapters
         /// </summary>
         /// <param name="id"></param>
-        [HttpDelete("{id}")]
+        [HttpDelete("sync/{id}")]
         public void Delete(Guid id) => _bookChaptersService.Remove(id);
         #endregion
 
 
         #region async
-        // GET: api/bookchapters
-        [HttpGet()]
+        // GET: api/bookchapters/async
+        [HttpGet("async")]
         public Task<IEnumerable<BookChapter>> GetBookChaptersAsync() => _bookChaptersService.GetAllAsync();
-        // GET api/bookchapters/guid
-        [HttpGet("{id}", Name = nameof(GetBookChapterByIdAsync))]
+        // GET api/bookchapters/async/guid
+        [HttpGet("async/{id}", Name = nameof(GetBookChapterByIdAsync))]
         public async Task<IActionResult> GetBookChapterByIdAsync(Guid id)
         {
             BookChapter chapter = await _bookChaptersService.FindAsync(id);
@@ -124,8 +125,8 @@ namespace WebAPIServiceSamples.Controllers
                 return new ObjectResult(chapter);
             }
         }
-        // POST api/bookchapters
-        [HttpPost]
+        // POST api/bookchapters/async
+        [HttpPost("async")]
         public async Task<IActionResult> PostBookChapterAsync([FromBody]BookChapter chapter)
         {
             if (chapter == null)
@@ -137,7 +138,7 @@ namespace WebAPIServiceSamples.Controllers
             new { id = chapter.Id }, chapter);
         }
         // PUT api/bookchapters/guid
-        [HttpPut("{id}")]
+        [HttpPut("async/{id}")]
         public async Task<IActionResult> PutBookChapterAsync(Guid id, [FromBody]BookChapter chapter)
         {
             if (chapter == null || id != chapter.Id)
@@ -151,8 +152,8 @@ namespace WebAPIServiceSamples.Controllers
             await _bookChaptersService.UpdateAsync(chapter);
             return new NoContentResult();
         }
-        // DELETE api/bookchapters/guid
-        [HttpDelete("{id}")]
+        // DELETE api/bookchapters/async/guid
+        [HttpDelete("async/{id}")]
         public async Task DeleteAsync(Guid id) => await _bookChaptersService.RemoveAsync(id);
         #endregion
     }

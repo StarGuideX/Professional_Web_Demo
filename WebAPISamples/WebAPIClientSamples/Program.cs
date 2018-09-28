@@ -14,7 +14,7 @@ namespace WebAPIClientSamples
     {
         public static IServiceProvider Container { get; private set; }
 
-        static async void Main(string[] args)
+        static async Task Main(string[] args)
         {
             Console.WriteLine("等待服务......");
             Console.ReadKey();
@@ -26,8 +26,8 @@ namespace WebAPIClientSamples
             await test.ReadNotExistingChapterAsync();
             await test.ReadXmlAsync();
             await test.AddChapterAsync();
-            await test.UpdateChapterAsync();
-            await test.RemoveChapterAsync();
+            await test.UpdateChapterAsync("title1");
+            await test.RemoveChapterAsync("title1");
             Console.ReadLine();
         }
 
@@ -37,6 +37,10 @@ namespace WebAPIClientSamples
             services.AddSingleton<UrlService>();
             services.AddSingleton<BookChapterClientService>();
             services.AddTransient<SampleRequestClient>();
+            services.AddLogging(logger =>
+            {
+                logger.AddConsole();
+            });
 
             Container = services.BuildServiceProvider();
         }
