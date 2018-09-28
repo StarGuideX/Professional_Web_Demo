@@ -26,7 +26,13 @@ namespace WebAPIServiceSamplesHost
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddXmlSerializerFormatters();
+            IMvcBuilder mvcBuilder = services.AddMvc();
+            mvcBuilder.SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            #region 改变响应格式
+            mvcBuilder.AddXmlSerializerFormatters();
+            #endregion
+
             services.AddSingleton<IBookChaptersService, BookChaptersService>();
             services.AddSingleton<SampleChapters>();
 

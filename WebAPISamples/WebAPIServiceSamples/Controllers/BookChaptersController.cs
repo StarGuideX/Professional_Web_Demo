@@ -9,6 +9,7 @@ using WebAPIServiceSamples.BookServices.Services;
 
 namespace WebAPIServiceSamples.Controllers
 {
+    //改变响应格式
     [Produces("application/json","application/xml")]
     [Route("api/[controller]")]
     // [ApiController]
