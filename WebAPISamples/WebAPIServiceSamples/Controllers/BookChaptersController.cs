@@ -10,13 +10,13 @@ using WebAPIServiceSamples.BookServices.Services;
 namespace WebAPIServiceSamples.Controllers
 {
     //改变响应格式
-    [Produces("application/json","application/xml")]
+    [Produces("application/json", "application/xml")]
     [Route("api/[controller]")]
     // [ApiController]
     public class BookChaptersController : Controller
     {
         private readonly IBookChaptersService _bookChaptersService;
-
+        #region sync
         public BookChaptersController(IBookChaptersService bookChaptersService)
         {
             _bookChaptersService = bookChaptersService;
@@ -82,7 +82,7 @@ namespace WebAPIServiceSamples.Controllers
         public IActionResult PutBookChapter(Guid id, [FromBody]BookChapter chapter)
         {
             // 如果参数BookChapter或者id为空，则返回BadRequest（HTTP错误400）
-            if (chapter == null || id!= chapter.Id)
+            if (chapter == null || id != chapter.Id)
             {
                 return BadRequest();
             }
@@ -103,5 +103,57 @@ namespace WebAPIServiceSamples.Controllers
         /// <param name="id"></param>
         [HttpDelete("{id}")]
         public void Delete(Guid id) => _bookChaptersService.Remove(id);
+        #endregion
+
+
+        #region async
+        // GET: api/bookchapters
+        [HttpGet()]
+        public Task<IEnumerable<BookChapter>> GetBookChaptersAsync() => _bookChaptersService.GetAllAsync();
+        // GET api/bookchapters/guid
+        [HttpGet("{id}", Name = nameof(GetBookChapterByIdAsync))]
+        public async Task<IActionResult> GetBookChapterByIdAsync(Guid id)
+        {
+            BookChapter chapter = await _bookChaptersService.FindAsync(id);
+            if (chapter == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return new ObjectResult(chapter);
+            }
+        }
+        // POST api/bookchapters
+        [HttpPost]
+        public async Task<IActionResult> PostBookChapterAsync([FromBody]BookChapter chapter)
+        {
+            if (chapter == null)
+            {
+                return BadRequest();
+            }
+            await _bookChaptersService.AddAsync(chapter);
+            return CreatedAtRoute(nameof(GetBookChapterByIdAsync),
+            new { id = chapter.Id }, chapter);
+        }
+        // PUT api/bookchapters/guid
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutBookChapterAsync(Guid id, [FromBody]BookChapter chapter)
+        {
+            if (chapter == null || id != chapter.Id)
+            {
+                return BadRequest();
+            }
+            if (await _bookChaptersService.FindAsync(id) == null)
+            {
+                return NotFound();
+            }
+            await _bookChaptersService.UpdateAsync(chapter);
+            return new NoContentResult();
+        }
+        // DELETE api/bookchapters/guid
+        [HttpDelete("{id}")]
+        public async Task DeleteAsync(Guid id) => await _bookChaptersService.RemoveAsync(id);
+        #endregion
     }
 }

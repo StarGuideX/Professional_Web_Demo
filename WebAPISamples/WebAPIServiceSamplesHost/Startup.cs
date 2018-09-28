@@ -32,10 +32,12 @@ namespace WebAPIServiceSamplesHost
             #region 改变响应格式
             mvcBuilder.AddXmlSerializerFormatters();
             #endregion
-
+            #region 注册服务
+            // BookChaptersService作为单例注册，所以可以同时从多个线程访问它;
+            // 这就是为什么在实现中需要ConcurrentDictionary的原因
             services.AddSingleton<IBookChaptersService, BookChaptersService>();
             services.AddSingleton<SampleChapters>();
-
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
