@@ -16,12 +16,12 @@ namespace WebAPIServiceSamples.Controllers
     public class BookChaptersController : Controller
     {
         private readonly IBookChaptersService _bookChaptersService;
-        #region sync
+    
         public BookChaptersController(IBookChaptersService bookChaptersService)
         {
             _bookChaptersService = bookChaptersService;
         }
-
+        #region sync
         // GET api/bookchapters/sync
         /// <summary>
         /// 获取所有BookChapters

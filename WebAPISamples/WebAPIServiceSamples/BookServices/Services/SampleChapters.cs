@@ -48,5 +48,20 @@ namespace WebAPIServiceSamples.BookServices.Services
             }
             _bookChaptersService.AddRange(chapters);
         }
+
+        public async Task CreateSampleChaptersAsync()
+        {
+            var chapters = new List<BookChapter>();
+            for (int i = 0; i < 8; i++)
+            {
+                chapters.Add(new BookChapter
+                {
+                    Number = i,
+                    Title = sampleTitles[i],
+                    Pages = numberPages[i]
+                });
+            }
+            await _bookChaptersService.AddRangeAsync(chapters);
+        }
     }
 }

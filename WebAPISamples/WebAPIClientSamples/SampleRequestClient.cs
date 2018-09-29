@@ -38,7 +38,7 @@ namespace WebAPIClientSamples
         }
 
         /// <summary>
-        /// 
+        /// 如果章节的标识符不存在，就调用
         /// </summary>
         /// <returns></returns>
         public async Task ReadNotExistingChapterAsync()

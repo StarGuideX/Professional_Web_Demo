@@ -74,6 +74,11 @@ namespace WebAPIClientSamples.Services
             return JsonConvert.DeserializeObject<IEnumerable<T>>(json);
         }
 
+        /// <summary>
+        /// 返回全部对象(Xml格式)
+        /// </summary>
+        /// <param name="requestUri"></param>
+        /// <returns></returns>
         public async Task<XElement> GetAllXmlAsync(string requestUri)
         {
             using (var client = new HttpClient())
@@ -82,7 +87,7 @@ namespace WebAPIClientSamples.Services
                 client.DefaultRequestHeaders.Accept.Add(
                   new MediaTypeWithQualityHeaderValue("application/xml"));
                 HttpResponseMessage resp = await client.GetAsync(requestUri);
-                Console.WriteLine($"status from GET {resp.StatusCode}");
+                Console.WriteLine($"GET状态{resp.StatusCode}");
                 resp.EnsureSuccessStatusCode();
                 string xml = await resp.Content.ReadAsStringAsync();
                 XElement chapters = XElement.Parse(xml);
@@ -90,6 +95,12 @@ namespace WebAPIClientSamples.Services
             }
         }
 
+        /// <summary>
+        /// Post 返回
+        /// </summary>
+        /// <param name="uri"></param>
+        /// <param name="item"></param>
+        /// <returns></returns>
         public async Task<T> PostAsync(string uri, T item)
         {
             if (_objectDisposed) throw new ObjectDisposedException(nameof(_httpClient));
@@ -97,13 +108,19 @@ namespace WebAPIClientSamples.Services
             string json = JsonConvert.SerializeObject(item);
             HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
             HttpResponseMessage resp = await _httpClient.PostAsync(uri, content);
-            Console.WriteLine($"status from POST {resp.StatusCode}");
+            Console.WriteLine($"POST状态 {resp.StatusCode}");
             resp.EnsureSuccessStatusCode();
-            Console.WriteLine($"added resource at {resp.Headers.Location}");
+            Console.WriteLine($"添加资源在{resp.Headers.Location}");
             json = await resp.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<T>(json);
         }
 
+        /// <summary>
+        /// 添加
+        /// </summary>
+        /// <param name="uri"></param>
+        /// <param name="item"></param>
+        /// <returns></returns>
         public async Task PutAsync(string uri, T item)
         {
             if (_objectDisposed) throw new ObjectDisposedException(nameof(_httpClient));
@@ -112,16 +129,21 @@ namespace WebAPIClientSamples.Services
             HttpContent content = new StringContent(json, Encoding.UTF8,
               "application/json");
             HttpResponseMessage resp = await _httpClient.PutAsync(uri, content);
-            Console.WriteLine($"status from PUT {resp.StatusCode}");
+            Console.WriteLine($"PUT 状态{resp.StatusCode}");
             resp.EnsureSuccessStatusCode();
         }
 
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="uri"></param>
+        /// <returns></returns>
         public async Task DeleteAsync(string uri)
         {
             if (_objectDisposed) throw new ObjectDisposedException(nameof(_httpClient));
 
             HttpResponseMessage resp = await _httpClient.DeleteAsync(uri);
-            Console.WriteLine($"status from DELETE {resp.StatusCode}");
+            Console.WriteLine($"DELETE 状态{resp.StatusCode}");
             resp.EnsureSuccessStatusCode();
         }
 

@@ -18,6 +18,7 @@ namespace WebAPIClientSamples
         {
             Console.WriteLine("等待服务......");
             Console.ReadKey();
+            //注册服务
             RegisterServices();
             var test = Container.GetRequiredService<SampleRequestClient>();
 
@@ -31,6 +32,10 @@ namespace WebAPIClientSamples
             Console.ReadLine();
         }
 
+        /// <summary>
+        /// 在Microsoft.Extensions.DependencyInjection container中注册所需的服务
+        /// 并配置日志记录以写入控制台
+        /// </summary>
         private static void RegisterServices()
         {
             var services = new ServiceCollection();
