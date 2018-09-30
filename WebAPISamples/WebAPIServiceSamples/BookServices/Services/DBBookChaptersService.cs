@@ -14,6 +14,47 @@ namespace WebAPIServiceSamples.BookServices.Services
         public DBBookChaptersService(BooksContext booksContext)
         {
             this._booksContext = booksContext ?? throw new ArgumentNullException(nameof(booksContext));
+
+            bool created = _booksContext.Database.EnsureCreated();
+            if (created)
+            {
+                CreateChapters();
+            }
+
+        }
+
+        private string[] sampleTitles = new[]
+       {
+            "BookTitles1",
+            "BookTitles2",
+            "BookTitles3",
+            "BookTitles4",
+            "BookTitles5",
+            "BookTitles6",
+            "BookTitles7",
+            "BookTitles8",
+            "BookTitles9",
+        };
+
+        private int[] numberPages = { 35, 42, 33, 20, 24, 38, 20, 32, 44 };
+
+        /// <summary>
+        /// 初始化，填充数据
+        /// </summary>
+        public void CreateChapters()
+        {
+            var chapters = new List<BookChapter>();
+            for (int i = 0; i < 8; i++)
+            {
+                chapters.Add(new BookChapter
+                {
+                    Number = i,
+                    Title = sampleTitles[i],
+                    Pages = numberPages[i]
+                });
+            }
+            _booksContext.AddRange(chapters);
+            _booksContext.SaveChanges();
         }
 
         public void Add(BookChapter bookChapter)

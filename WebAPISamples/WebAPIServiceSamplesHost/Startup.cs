@@ -40,22 +40,30 @@ namespace WebAPIServiceSamplesHost
                 options.UseSqlServer(Configuration.GetConnectionString("BooksConnection"));
             });
 
-
-
             // BookChaptersService作为单例注册，所以可以同时从多个线程访问它;
             // 这就是为什么在实现中需要ConcurrentDictionary的原因
             //services.AddSingleton<IBookChaptersService, BookChaptersService>();
 
-            services.AddSingleton<IBookChaptersService, DBBookChaptersService>();
+            services.AddScoped<IBookChaptersService, DBBookChaptersService>();
 
-            services.AddSingleton<SampleChapters>();
-
+            services.AddScoped<SampleChapters>();
+            // OpenAPI
+            services.AddSwaggerGen(options =>
+            {
+                //options.DescribeAllEnumsAsStrings();
+                options.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info
+                {
+                    Title = "Azure Adapter Api - Catalog HTTP API",
+                    Version = "v1",
+                    Description = "The Catalog Microservice HTTP API. This is a Data-Driven/CRUD microservice sample",
+                    TermsOfService = "Terms Of Service"
+                });
+            });
             #endregion
-            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env,SampleChapters sampleChapters, BooksContext booksContext)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env,SampleChapters sampleChapters)
         {
             if (env.IsDevelopment())
             {
@@ -68,12 +76,11 @@ namespace WebAPIServiceSamplesHost
             app.UseHttpsRedirection();
             app.UseMvc();
 
-            bool created = booksContext.Database.EnsureCreated();
-            if (created)
+            // OpenAPI
+            app.UseSwagger().UseSwaggerUI(c =>
             {
-              //await sampleChapters.CreateSampleChaptersAsync();
-            }
-            
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
         }
     }
 }
