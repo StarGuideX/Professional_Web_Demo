@@ -18,18 +18,21 @@ namespace WebAPIOdataSamples.Controllers
             _booksContext = booksContext ?? throw new ArgumentNullException(nameof(booksContext));
         }
 
-        [EnableQuery(AllowedQueryOptions = AllowedQueryOptions.All)]
-        public IQueryable<Book> Get(ODataQueryOptions options)
-        {
-            ODataValidationSettings settings = new ODataValidationSettings()
-            {
-                MaxExpansionDepth = 4
-            };
-            options.Validate(settings);
-            return _booksContext.Books.Include(b => b.Chapters);
-        }
+        public IQueryable<Book> Get() => _booksContext.Books.Include(b => b.Chapters);
 
-        [EnableQuery()]
+        //[EnableQuery(AllowedQueryOptions = AllowedQueryOptions.All)]    
+        //public IQueryable<Book> Get(ODataQueryOptions options)
+        //{
+        //    ODataValidationSettings settings = new ODataValidationSettings()
+        //    {
+        //        MaxExpansionDepth = 4
+        //    };
+        //    options.Validate(settings);
+        //    var books = _booksContext.Books.Include(b => b.Chapters);
+        //    return books;
+        //}
+
+        [EnableQuery]
         public SingleResult<Book> Get([FromODataUri] int id) => 
             SingleResult.Create(_booksContext.Books.Where(b => b.Id.Equals(id)));
     }

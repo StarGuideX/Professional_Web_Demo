@@ -42,6 +42,7 @@ namespace WebAPIOdataSamples
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, CreateBooksService sampleBooks)
         {
+            //如果数据库不存在,则创建
             sampleBooks.CreateDatabase();
 
             if (env.IsDevelopment())
@@ -53,12 +54,17 @@ namespace WebAPIOdataSamples
             //    app.UseHsts();
             //}
 
+            // ODataConventionModelBuilder将.NET类映射到实体数据模型（Entity Data Model-EDM）
+            // OData使用EDM模型来定义服务公开的数据
             var builder = new ODataConventionModelBuilder(app.ApplicationServices);
             builder.EntitySet<Book>("Books");
-            builder.EntitySet<BookChapter>("BookChapter");
+            builder.EntitySet<BookChapter>("Chapters");
             //app.UseHttpsRedirection();
             app.UseMvc(routeBuilder=> {
-                routeBuilder.MapODataServiceRoute("ODataRoute", "odata", builder.GetEdmModel());
+                // routeName: 路由的名称
+                // routePrefix: 路由前缀
+                // model: ODataConventionModelBuilder创建模型后返回的IEdmModel
+                routeBuilder.MapODataServiceRoute(routeName:"ODataRoute",routePrefix:"odata", model:builder.GetEdmModel());
                 routeBuilder.EnableDependencyInjection();
             });
         }
